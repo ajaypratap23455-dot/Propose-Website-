@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Moment Forever</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background: radial-gradient(circle at center, #1a001a 0%, #000 60%);
+            color: gold;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        section {
+            display: none;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Spotlight effect */
+        section::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            animation: pulseLight 3s infinite alternate;
+        }
+
+        @keyframes pulseLight {
+            from {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+
+            to {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        button {
+            background: linear-gradient(45deg, gold, orange);
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px gold;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* Envelope */
+        .envelope {
+            width: 280px;
+            height: 180px;
+            background: linear-gradient(45deg, gold, orange);
+            position: relative;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 0 15px gold;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50%;
+            background: brown;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transition: transform 1s;
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+
+        /* Letter */
+        .letter {
+            display: none;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        /* Memories */
+        .memory-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .card {
+            width: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* 💍 Ring Animation */
+        .ring {
+            font-size: 70px;
+            margin: 20px 0;
+            opacity: 0;
+            transform: translateY(100px) scale(0.5) rotate(-180deg);
+            transition: all 1.5s ease;
+            text-shadow: 0 0 10px gold, 0 0 25px gold;
+        }
+
+        .ring.show {
+            opacity: 1;
+            transform: translateY(0) scale(1.2) rotate(0deg);
+            animation: rotateRing 3s linear infinite, sparkle 1.5s infinite alternate;
+        }
+
+        @keyframes rotateRing {
+            from {
+                transform: translateY(0) scale(1.2) rotate(0deg);
+            }
+
+            to {
+                transform: translateY(0) scale(1.2) rotate(360deg);
+            }
+        }
+
+        @keyframes sparkle {
+            from {
+                text-shadow: 0 0 10px gold;
+            }
+
+            to {
+                text-shadow: 0 0 30px white, 0 0 50px gold;
+            }
+        }
+
+        /* Kneeling text */
+        .kneel-text {
+            font-size: 1.2em;
+            opacity: 0;
+            animation: fadeInKneel 2s forwards;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes fadeInKneel {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Celebration */
+        #celebration {
+            background: black;
+            color: white;
+        }
+
+        .names {
+            font-size: 2em;
+            margin-top: 20px;
+            color: gold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="nameScreen" style="display:flex;">
+        <h1>Enter Your Names 💖</h1>
+        <input type="text" id="name1" placeholder="Your Name">
+        <input type="text" id="name2" placeholder="Her Name">
+        <button onclick="startJourney()">Start Our Story ✨</button>
+    </section>
+
+    <section id="envelopeSection">
+        <div class="envelope" onclick="openEnvelope()">
+            <div class="flap"></div>
+            <p style="margin-top:60px;">Open Me 💌</p>
+        </div>
+    </section>
+
+    <section id="letterSection">
+        <div class="letter" id="letterBox">
+            <h2>My Love Letter 💖</h2>
+            <p id="letterText"></p>
+            <button onclick="showMemories()">See Our Memories 📸</button>
+        </div>
+    </section>
+
+    <section id="memorySection">
+        <h2>Our Beautiful Moments ✨</h2>
+        <div class="memory-cards">
+            <div class="card"><img src="images/1.jpg">
+                <p>First Chat ❤️</p>
+            </div>
+            <div class="card"><img src="images/2.jpg">
+                <p>First Photo 📸</p>
+            </div>
+            <div class="card"><img src="images/3.jpg">
+                <p>Funny Moment 😄</p>
+            </div>
+            <div class="card"><img src="images/4.jpg">
+                <p>Special Day 💖</p>
+            </div>
+        </div>
+        <button onclick="showProposal()">Next ➜</button>
+    </section>
+
+    <section id="proposalSection">
+        <div class="ring" id="ring">💍</div>
+        <p class="kneel-text">On one knee, with all my heart...</p>
+        <h1>Will You Be Mine Forever? 💖</h1>
+        <button onclick="celebrate()">YES 💖</button>
+    </section>
+
+    <section id="celebration">
+        <h1>She Said YES! 🎉</h1>
+        <div class="names" id="finalNames"></div>
+    </section>
+
+    <script>
+        let lover1 = "", lover2 = "";
+
+        function startJourney() {
+            lover1 = name1.value.trim();
+            lover2 = name2.value.trim();
+            if (!lover1 || !lover2) { alert("Enter both names ❤️"); return; }
+            nameScreen.style.display = "none";
+            envelopeSection.style.display = "flex";
+        }
+
+        function openEnvelope() {
+            document.querySelector(".envelope").classList.add("open");
+            setTimeout(() => {
+                envelopeSection.style.display = "none";
+                letterSection.style.display = "flex";
+                letterBox.style.display = "block";
+                letterText.innerText =
+                    lover2 + ", from the moment you came into my life, everything became beautiful. I promise to love you forever. 💖 — " + lover1;
+            }, 1000);
+        }
+
+        function showMemories() {
+            letterSection.style.display = "none";
+            memorySection.style.display = "flex";
+        }
+
+        function showProposal() {
+            memorySection.style.display = "none";
+            proposalSection.style.display = "flex";
+            setTimeout(() => ring.classList.add("show"), 300);
+        }
+
+        function celebrate() {
+            proposalSection.style.display = "none";
+            celebration.style.display = "flex";
+            finalNames.innerText = lover1 + " ❤️ " + lover2;
+            confetti({ particleCount: 250, spread: 150 });
+        }
+    </script>
+
+</body>
+
+</html>
