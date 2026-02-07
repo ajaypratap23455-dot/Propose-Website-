@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KSP634ZYV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2KSP634ZYV');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Moment Forever</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2KSP634ZYV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2KSP634ZYV');
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -36,7 +37,6 @@
             position: relative;
         }
 
-        /* Spotlight effect */
         section::before {
             content: "";
             position: absolute;
@@ -51,15 +51,8 @@
         }
 
         @keyframes pulseLight {
-            from {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.6;
-            }
-
-            to {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 1;
-            }
+            from { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            to { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
         }
 
         button {
@@ -80,7 +73,6 @@
             font-size: 16px;
         }
 
-        /* Envelope */
         .envelope {
             width: 280px;
             height: 180px;
@@ -105,7 +97,6 @@
             transform: rotateX(180deg);
         }
 
-        /* Letter */
         .letter {
             display: none;
             max-width: 600px;
@@ -115,7 +106,6 @@
             border-radius: 15px;
         }
 
-        /* Memories */
         .memory-cards {
             display: flex;
             flex-wrap: wrap;
@@ -135,7 +125,6 @@
             border-radius: 10px;
         }
 
-        /* 💍 Ring Animation */
         .ring {
             font-size: 70px;
             margin: 20px 0;
@@ -152,26 +141,15 @@
         }
 
         @keyframes rotateRing {
-            from {
-                transform: translateY(0) scale(1.2) rotate(0deg);
-            }
-
-            to {
-                transform: translateY(0) scale(1.2) rotate(360deg);
-            }
+            from { transform: translateY(0) scale(1.2) rotate(0deg); }
+            to { transform: translateY(0) scale(1.2) rotate(360deg); }
         }
 
         @keyframes sparkle {
-            from {
-                text-shadow: 0 0 10px gold;
-            }
-
-            to {
-                text-shadow: 0 0 30px white, 0 0 50px gold;
-            }
+            from { text-shadow: 0 0 10px gold; }
+            to { text-shadow: 0 0 30px white, 0 0 50px gold; }
         }
 
-        /* Kneeling text */
         .kneel-text {
             font-size: 1.2em;
             opacity: 0;
@@ -179,13 +157,8 @@
             animation-delay: 1.5s;
         }
 
-        @keyframes fadeInKneel {
-            to {
-                opacity: 1;
-            }
-        }
+        @keyframes fadeInKneel { to { opacity: 1; } }
 
-        /* Celebration */
         #celebration {
             background: black;
             color: white;
@@ -226,18 +199,10 @@
     <section id="memorySection">
         <h2>Our Beautiful Moments ✨</h2>
         <div class="memory-cards">
-            <div class="card"><img src="images/1.jpg">
-                <p>First Chat ❤️</p>
-            </div>
-            <div class="card"><img src="images/2.jpg">
-                <p>First Photo 📸</p>
-            </div>
-            <div class="card"><img src="images/3.jpg">
-                <p>Funny Moment 😄</p>
-            </div>
-            <div class="card"><img src="images/4.jpg">
-                <p>Special Day 💖</p>
-            </div>
+            <div class="card"><img src="images/1.jpg"><p>First Chat ❤️</p></div>
+            <div class="card"><img src="images/2.jpg"><p>First Photo 📸</p></div>
+            <div class="card"><img src="images/3.jpg"><p>Funny Moment 😄</p></div>
+            <div class="card"><img src="images/4.jpg"><p>Special Day 💖</p></div>
         </div>
         <button onclick="showProposal()">Next ➜</button>
     </section>
@@ -296,6 +261,4 @@
     </script>
 
 </body>
-
-
 </html>
